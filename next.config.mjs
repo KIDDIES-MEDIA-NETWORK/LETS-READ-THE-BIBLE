@@ -6,27 +6,30 @@ const nextConfig = {
     });
     return config;
   },
+
   experimental: {
     serverActions: {
       bodySizeLimit: "100mb",
     },
   },
+
   images: {
     domains: [
       "res.cloudinary.com",
       "d1ent1.loveworldcloud.com",
       "lovetoons.org",
       "lovetoons.tv",
-    ], // Add the Cloudinary domain here
+      "parentforum.lovetoons.org",
+    ],
   },
+
   async headers() {
     return [
       {
-        // matching all API routes
         source: "/api/:path*",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
-          { key: "Access-Control-Allow-Origin", value: "*" }, // replace this your actual origin
+          { key: "Access-Control-Allow-Origin", value: "*" },
           {
             key: "Access-Control-Allow-Methods",
             value: "GET,DELETE,PATCH,POST,PUT",
@@ -37,6 +40,31 @@ const nextConfig = {
               "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
           },
         ],
+      },
+    ];
+  },
+
+  async redirects() {
+    return [
+      // {
+      //   source: "/:path*", // matches everything
+      //   destination: "https://lovetoons.org/fiesta.php",
+      //   permanent: false,
+      // },
+      {
+        source: "/avatar",
+        destination: "/",
+        permanent: false,
+      },
+      {
+        source: "/fiesta",
+        destination: "/",
+        permanent: false,
+      },
+      {
+        source: "/lrbf",
+        destination: "/",
+        permanent: true,
       },
     ];
   },
